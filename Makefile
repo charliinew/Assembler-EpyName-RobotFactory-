@@ -9,6 +9,11 @@ SRC	=	src/my_strlen.c \
 		src/my_strcmp.c \
 		src/my_str_to_word_array_char.c \
 		src/my_tablen.c \
+		src/my_getnbr.c \
+		src/my_add.c \
+		src/my_sub.c \
+		src/my_mul.c \
+		src/my_put.c \
 
 OBJ     =       $(SRC:.c=.o)
 
@@ -19,7 +24,7 @@ all:     $(NAME)
 $(NAME):		$(OBJ)
 		ar rc $(NAME) $(OBJ)
 		mv $(NAME) ./src
-		gcc -g -o yolotron-asm src/yolotron-vm.c -L./src -lmy
+		gcc -o yolotron-asm src/yolotron_asm.c -L./src -lmy
 clean:
 	rm -f $(OBJ)
 

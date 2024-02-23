@@ -1,0 +1,5 @@
+*.o
+*.a
+.idea
+example.yolotron
+example.bytecode

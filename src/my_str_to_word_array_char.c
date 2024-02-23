@@ -5,85 +5,84 @@
 ** qzdsqzd
 */
 
+
 #include <stdlib.h>
 
 int my_c_isnt_separateur(char c, char *separateur)
 {
-    int i = 0;
+    int i;
 
-    while (separateur[i] != '\0') {
+    for (i = 0; separateur[i] != '\0'; i++) {
         if (c == separateur[i])
             return 0;
+    }
+    return (1);
+}
+
+static void pls2(char **tab, int *j, int *i)
+{
+    tab[*i][*j] = '\0';
+    if (*j != 0)
+        (*i)++;
+    *j = 0;
+}
+
+void pls(char const *str, int *h, char *separateur)
+{
+    while (my_c_isnt_separateur(str[*h], separateur) == 0 && str[*h] != '\0') {
+        (*h)++;
+    }
+}
+
+int len_word(char const *str, char *separateur)
+{
+    int i = 0;
+
+    while (my_c_isnt_separateur(str[i], separateur) == 1 && str[i] != '\0') {
         i++;
     }
-    return 1;
+    return (i);
 }
 
-static void count_words2(int *j, int *word_count)
+int counter_word(char const *str, char *separateur)
 {
-    if (*j == 0)
-        (*word_count)++;
-    (*j)++;
-}
-
-static int count_words(char const *str, char *separateur)
-{
-    int h = 0;
+    int i = 0;
     int j = 0;
-    int word_count = 0;
+    int h = 0;
 
     while (str[h] != '\0') {
-        if (my_c_isnt_separateur(str[h], separateur)) {
-            count_words2(&j, &word_count);
-        } else
-            j = 0;
-        h++;
+        while ((my_c_isnt_separateur(str[h], separateur) == 1)
+            && str[h] != '\0') {
+            h++;
+            j++;
+        }
+        pls(str, &h, separateur);
+        if (j != 0)
+            (i)++;
+        j = 0;
     }
-    return word_count;
-}
-
-void copy_word(char **tab, int word_count, int h, int j)
-{
-    if (j == 0)
-        tab[word_count] = malloc(sizeof(char) * (h + 1));
-}
-
-static char **str2(char **tab, int word_count, int j)
-{
-    if (j != 0) {
-        tab[word_count][j] = '\0';
-        word_count++;
-    }
-    tab[word_count] = NULL;
-    return tab;
-}
-
-static void str1(int *j, int *word_count, char **tab)
-{
-    if (*j != 0) {
-        tab[*word_count][*j] = '\0';
-        (*word_count)++;
-        *j = 0;
-    }
+    return (i);
 }
 
 char **my_str_to_word_array_char(char const *str, char *separateur)
 {
-    int h = 0;
+    int i = 0;
     int j = 0;
-    int word_count = 0;
+    int h = 0;
     char **tab;
-    int total_words = count_words(str, separateur);
 
-    tab = malloc(sizeof(char *) * (total_words + 1));
+    tab = malloc(sizeof(char *) * counter_word(str, separateur) + 1);
     while (str[h] != '\0') {
-        if (my_c_isnt_separateur(str[h], separateur)) {
-            copy_word(tab, word_count, h, j);
-            tab[word_count][j] = str[h];
+        tab[i] = malloc(len_word(&str[h], separateur) + 1);
+        while (my_c_isnt_separateur(str[h], separateur)
+            == 1 && str[h] != '\0') {
+            tab[i][j] = str[h];
+            h++;
             j++;
-        } else
-            str1(&j, &word_count, tab);
-        h++;
+        }
+        pls2(tab, &j, &i);
+        pls(str, &h, separateur);
     }
-    return str2(tab, word_count, j);
+    tab[i] = 0;
+    return (tab);
 }

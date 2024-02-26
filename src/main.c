@@ -38,7 +38,7 @@ int main(int ac, char **av)
     char **tab;
     int fd_new;
 
-    if (ac != 3 || fd == -1)
+    if (fd == -1)
         return 84;
     fd_new = open(my_new_name(av[1]), O_WRONLY | O_CREAT |
         O_TRUNC, S_IRUSR | S_IWUSR);

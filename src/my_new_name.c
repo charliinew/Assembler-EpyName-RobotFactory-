@@ -22,6 +22,5 @@ char *my_new_name(char *name)
     new_name = malloc(sizeof(char) * (my_strlen(name) + 3));
     my_strcpy(new_name, name);
     my_strcat(new_name, ".cor");
-    printf("%s\n", new_name);
     return new_name;
 }

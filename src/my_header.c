@@ -11,13 +11,17 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdio.h>
+#include <string.h>
 
-static void my_comment(char **line, int fd_new, header_t header)
+static void my_comment(char **line, int fd_new, header_t *header)
 {
-    header.prog_size = my_strlen(line[1]);
+    u_int64_t test = 0;
+    header->prog_size = 0;
+    my_strcpy(header->comment, line[1]);
     if (fd_new != -1) {
-        write(fd_new, &header.prog_size, 24);
-        write(fd_new, line[1], sizeof(header.comment));
+        write(fd_new, &test, sizeof(test));
+        write(fd_new, &header->prog_size, sizeof(header->prog_size));
+        write(fd_new, header->comment, sizeof (header->comment));
     }
 }
 
@@ -25,7 +29,7 @@ void my_header(char **tab, int fd_new)
 {
     char ***data = malloc(sizeof(char **) * (my_tablen(tab) + 1));
     int i;
-    header_t header;
+    header_t *header = malloc(sizeof(header_t));
 
     for (i = 0; tab[i] != NULL; i++)
         data[i] = my_str_to_word_array_char(tab[i], "\"\t ");
@@ -33,9 +37,8 @@ void my_header(char **tab, int fd_new)
     for (i = 0; data[i] != NULL && my_strncmp(data[i][0], ".name", 5) != 0;
     i++);
     if (data[i] != NULL)
-        //my_name(data[i], fd_new, header);
-    for (i = 0; data[i] != NULL && my_strncmp(data[i][0], ".comment", 8) != 0;
-    i++);
+        my_name(data[i], fd_new, header);
+    for (; data[i] != NULL && my_strncmp(data[i][0], ".comment", 8) != 0; i++);
     if (data[i] != NULL)
         my_comment(data[i], fd_new, header);
 }

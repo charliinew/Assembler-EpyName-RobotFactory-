@@ -6,3 +6,6 @@ example.bytecode
 asm
 jon.s
 jon.cor
+*.s
+*.cor
+B-CPE-200_champions

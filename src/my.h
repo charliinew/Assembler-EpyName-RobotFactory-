@@ -18,6 +18,7 @@ void my_add(char **, int);
 void my_sub(char **, int);
 void my_mul(char **, int);
 void my_put(char **, int);
+void my_header(char **, int);
 
 static char const *f_name[4] = {"add", "sub", "mul", "put"};
 static void const (*f_ptr[4])(char **, int) = {&my_add, &my_sub,

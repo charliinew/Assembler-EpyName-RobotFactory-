@@ -9,7 +9,6 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdio.h>
 
 void my_mul(char **line, int fd)
 {

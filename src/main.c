@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include "my.h"
 
-static void yolotron2(char **line, int fd_new)
+static void my_body(char **line, int fd_new)
 {
     int i;
 
@@ -24,16 +24,9 @@ static void yolotron2(char **line, int fd_new)
         exit(84);
 }
 
-static void yolotron(char **tab, int fd_new)
+static void my_asm(char **tab, int fd_new)
 {
-    char ***data = malloc(sizeof(char **) * (my_tablen(tab) + 1));
-    int i;
-
-    for (i = 0; tab[i] != NULL; i++)
-        data[i] = my_str_to_word_array_char(tab[i], " ");
-    data[i] = NULL;
-    for (i = 0; data[i] != NULL; i++)
-        yolotron2(data[i], fd_new);
+    my_header(tab, fd_new);
     close(fd_new);
 }
 
@@ -47,7 +40,7 @@ int main(int ac, char **av)
 
     if (ac != 3 || fd == -1)
         return 84;
-    fd_new = open(av[2], O_WRONLY | O_CREAT |
+    fd_new = open(my_new_name(av[1]), O_WRONLY | O_CREAT |
         O_TRUNC, S_IRUSR | S_IWUSR);
     stat(av[1], &s);
     buffer = malloc(s.st_size);
@@ -56,6 +49,6 @@ int main(int ac, char **av)
         return 84;
     buffer[s.st_size] = '\0';
     tab = my_str_to_word_array_char(buffer, "\n");
-    yolotron(tab, fd_new);
+    my_asm(tab, fd_new);
     return 0;
 }

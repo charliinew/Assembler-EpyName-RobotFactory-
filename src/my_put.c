@@ -12,7 +12,8 @@
 
 void my_put(char **line, int fd)
 {
-
+    uint8_t instr = 0x04;
+    uint32_t len_str;
 
     if (my_tablen(line) != 2)
         exit(84);

@@ -14,6 +14,11 @@ SRC	=	src/my_strlen.c \
 		src/my_sub.c \
 		src/my_mul.c \
 		src/my_put.c \
+		src/my_new_name.c \
+		src/my_strcat.c \
+		src/my_strcpy.c \
+		src/my_header.c \
+		src/my_strncmp.c
 
 OBJ     =       $(SRC:.c=.o)
 

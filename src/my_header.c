@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include "op.h"
 #include <unistd.h>
+#include <stdio.h>
+#include <stdio.h>
 
 static void my_comment(char **line, int fd_new, header_t header)
 {
@@ -19,7 +21,6 @@ static void my_comment(char **line, int fd_new, header_t header)
     }
 }
 
-
 void my_header(char **tab, int fd_new)
 {
     char ***data = malloc(sizeof(char **) * (my_tablen(tab) + 1));
@@ -27,12 +28,14 @@ void my_header(char **tab, int fd_new)
     header_t header;
 
     for (i = 0; tab[i] != NULL; i++)
-        data[i] = my_str_to_word_array_char(tab[i], "\"");
+        data[i] = my_str_to_word_array_char(tab[i], "\"\t ");
     data[i] = NULL;
-    for(i = 0; data[i] != NULL && my_strncmp(data[i][0], ".name", 5) != 0; i++);
+    for (i = 0; data[i] != NULL && my_strncmp(data[i][0], ".name", 5) != 0;
+    i++);
     if (data[i] != NULL)
-        my_name(data[i], fd_new, header);
-    for (;data[i] != NULL && my_strncmp(data[i][0], ".comment", 8) != 0; i++);
-    if (data[i] == NULL)
+        //my_name(data[i], fd_new, header);
+    for (i = 0; data[i] != NULL && my_strncmp(data[i][0], ".comment", 8) != 0;
+    i++);
+    if (data[i] != NULL)
         my_comment(data[i], fd_new, header);
 }

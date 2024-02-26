@@ -24,7 +24,7 @@ all:     $(NAME)
 $(NAME):		$(OBJ)
 		ar rc $(NAME) $(OBJ)
 		mv $(NAME) ./src
-		gcc -o yolotron-asm src/yolotron_asm.c -L./src -lmy
+		gcc -o asm src/main.c -L./src -lmy
 clean:
 	rm -f $(OBJ)
 

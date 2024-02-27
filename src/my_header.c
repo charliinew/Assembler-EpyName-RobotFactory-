@@ -16,12 +16,13 @@
 static void my_comment(char **line, int fd_new, header_t *header)
 {
     u_int64_t test = 0;
+
     header->prog_size = 0;
     my_strcpy(header->comment, line[1]);
     if (fd_new != -1) {
         write(fd_new, &test, sizeof(test));
         write(fd_new, &header->prog_size, sizeof(header->prog_size));
-        write(fd_new, header->comment, sizeof (header->comment));
+        write(fd_new, header->comment, sizeof(header->comment));
     }
 }
 

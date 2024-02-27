@@ -22,6 +22,8 @@ void my_header(char **, int);
 char *my_new_name(char *);
 char *my_strcat(char *, char const *);
 char *my_strcpy(char *, char const *);
+int my_putchar(char);
+int my_putstr(char const *);
 
 static char const *f_name[4] = {"add", "sub", "mul", "put"};
 static void const (*f_ptr[4])(char **, int) = {&my_add, &my_sub,

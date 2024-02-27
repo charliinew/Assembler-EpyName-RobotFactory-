@@ -30,6 +30,14 @@ static void my_asm(char **tab, int fd_new)
     close(fd_new);
 }
 
+static void verif_h(char **av)
+{
+    if (av[1] != NULL && my_strcmp(av[1], "-h") == 0)
+        my_putstr("USAGE\n./asm file_name[.s]\nDESCRIPTION\nfile_name file in"
+                    " assembly language to be converted into file_name.cor, "
+                    "an executable in the Virtual Macine.\n");
+}
+
 int main(int ac, char **av)
 {
     struct stat s;
@@ -38,6 +46,7 @@ int main(int ac, char **av)
     char **tab;
     int fd_new;
 
+    verif_h(av);
     if (fd == -1)
         return 84;
     fd_new = open(my_new_name(av[1]), O_WRONLY | O_CREAT |

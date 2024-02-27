@@ -14,7 +14,6 @@
 
 static void my_asm(char **tab, int fd_new)
 {
-
     my_header(tab, fd_new);
     my_body(tab, fd_new);
     close(fd_new);

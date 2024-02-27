@@ -16,6 +16,7 @@
 static void my_comment(char **line, int fd_new, header_t *header)
 {
     int test = 0;
+
     header->prog_size = 0;
     my_strcpy(header->comment, line[1]);
     if (fd_new != -1) {

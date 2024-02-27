@@ -8,7 +8,7 @@
 #include "my.h"
 #include <stdlib.h>
 
-static void my_body(char **tab, int fd_new)
+void my_body(char **tab, int fd_new)
 {
     int i;
 

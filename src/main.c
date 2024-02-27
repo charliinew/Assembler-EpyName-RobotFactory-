@@ -12,21 +12,11 @@
 #include <stdlib.h>
 #include "my.h"
 
-static void my_body(char **line, int fd_new)
-{
-    int i;
-
-    for (i = 0; f_name[i] != NULL && (my_strcmp(line[0], f_name[i]) != 0 ||
-        my_strlen(line[0]) != my_strlen((char *) f_name[i])); i++);
-    if (f_name[i] != NULL)
-        f_ptr[i](line, fd_new);
-    else
-        exit(84);
-}
-
 static void my_asm(char **tab, int fd_new)
 {
+
     my_header(tab, fd_new);
+    my_body(tab, fd_new);
     close(fd_new);
 }
 
